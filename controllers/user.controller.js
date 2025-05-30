@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
         return res.send("Please provide a valid credentials")
     }
     // check if user exist in database
-    const isUser = userModel.findOne({ email })
+    const isUser = await userModel.findOne({ email })
 
     if(isUser){
         return res.send("User already exist, please login")

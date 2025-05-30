@@ -7,18 +7,18 @@ dotenv.config(); //  Load environment variables from .env
 
 const app = express()
 
+// ✅ Middleware to parse JSON
+app.use(express.json());
 
-// connect mong
+// Use User routes
+app.use(userRoutes)
+
+// connect to MongoDB
 mongoose
     .connect(process.env.MONGOOSE_API_URL)
     .then(() => console.log("MongoDB connection was successful"))
     .catch((err) => console.error("MongoDB connection error:", err.message))
 
-
-// ✅ Middleware to parse JSON
-app.use(express.json());
-
-app.use(userRoutes)
 
 // start the server
 const port = process.env.PORT

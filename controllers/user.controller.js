@@ -37,6 +37,17 @@ const getUser = async (req, res) => {
     return res.json(allUsers)
 }
 
+// get single User
+const getOneUser = async (req, res) => {
+    const {id} = req.query
+    try {
+        const user = await userModel.findById(id).populate("kyc").populate("posts").populate("books");
+        return res.json(user)
+    } catch (error) {
+        return res.send(error.message)
+    }
+}
+
 // update a user
 const updateUser = async (req,res) => {
     const {id, ...payload} = req.body
@@ -80,4 +91,4 @@ const loginUser = async (req, res) => {
     return res.json({message: "Login was successful"})
 }
 
-module.exports = {createUser, getUser, updateUser, deleteUser, loginUser}
+module.exports = {createUser, getUser, getOneUser, updateUser, deleteUser, loginUser}
